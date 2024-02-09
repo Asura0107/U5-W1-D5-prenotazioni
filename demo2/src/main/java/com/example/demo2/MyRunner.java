@@ -9,9 +9,15 @@ import com.example.demo2.services.EdificioService;
 import com.example.demo2.services.PostazioneService;
 import com.example.demo2.services.PrenotazioneService;
 import com.example.demo2.services.UtenteService;
+import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 @Component
 public class MyRunner implements CommandLineRunner {
@@ -27,16 +33,57 @@ public class MyRunner implements CommandLineRunner {
     @Autowired
     PrenotazioneService prenotazioneService;
 
+    //mi serve per prendere un enum random
+    public static <T extends Enum<?>> T getRandomEnum(Class<T> enumeration) {
+        Random random = new Random();
+        T[] values = enumeration.getEnumConstants();
+        return values[random.nextInt(values.length)];
+    }
 
     @Override
     public void run(String... args) throws Exception {
-        Utente utente = new Utente("io", "m", "m");
-        utenteService.save(utente);
-        Edificio edificio = new Edificio("f", "d", "d");
-        edificioService.save(edificio);
-        Postazione postazione = new Postazione("h", TipoPostazione.OPENSPACE, 4, edificio, 1);
-        postazioneService.save(postazione);
-        Prenotazione prenotazione = new Prenotazione(postazione, utente);
-        prenotazioneService.save(prenotazione);
+
+        Faker faker = new Faker();
+        Random r = new Random();
+        List<Edificio> edificios = new ArrayList<>();
+        List<Postazione> postazioni = new ArrayList<>();
+        List<Utente> utenti = new ArrayList<>();
+
+
+        for (int i = 0; i < 20; i++) {
+            Utente utente = new Utente(faker.name().name(), faker.name().username(), faker.internet().emailAddress());
+            utenteService.save(utente);
+            utenti.add(utente);
+        }
+        for (int i = 0; i < 4; i++) {
+            Edificio edificio = new Edificio(faker.address().firstName(), faker.address().streetAddress(), faker.address().city());
+            edificioService.save(edificio);
+            edificios.add(edificio);
+        }
+
+        for (int i = 0; i < 9; i++) {
+            Edificio edcas = edificios.get(r.nextInt(edificios.size()));
+            Postazione postazione = new Postazione(faker.lorem().characters(), getRandomEnum(TipoPostazione.class), r.nextInt(10, 50), edcas, r.nextInt(10, 60));
+            if (postazione.getMaxpersone() < postazione.getPersoneattuali()) {
+                postazione = null;
+            } else {
+
+                postazioneService.save(postazione);
+            }
+            postazioni.add(postazione);
+        }
+        for (int i = 0; i < 15; i++) {
+            Utente utcas = utenti.get(r.nextInt(utenti.size()));
+            Postazione poscas = postazioni.get(r.nextInt(postazioni.size()));
+            Prenotazione prenotazione = new Prenotazione(poscas, utcas);
+            if (prenotazione.getDurata().isBefore(LocalDate.now()) || poscas == null || prenotazione.getDurata() == null) {
+                continue;
+            }
+
+            prenotazioneService.save(prenotazione);
+
+        }
+
+
     }
 }

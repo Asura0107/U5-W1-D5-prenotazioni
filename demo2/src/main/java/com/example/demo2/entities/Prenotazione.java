@@ -29,22 +29,15 @@ public class Prenotazione {
         this.utente = utente;
         this.data = data;
         this.durata = data.plusDays(1);
-        if (now.isBefore(durata) || postazione.getMaxpersone() > postazione.getPersoneattuali()) {
-            this.postazione = postazione;
-        } else {
-            this.postazione = null;
-        }
+        this.postazione = postazione;
+
     }
 
     public Prenotazione(Postazione postazione, Utente utente) {
         this.utente = utente;
         this.data = LocalDate.now();
         this.durata = data.plusDays(1);
-        if (now.isBefore(durata) || postazione.getMaxpersone() > postazione.getPersoneattuali()) {
-            this.postazione = postazione;
-        } else {
-            this.postazione = null;
-        }
+        this.postazione = postazione;
     }
 
     public Prenotazione() {
