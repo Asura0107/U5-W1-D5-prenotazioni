@@ -6,6 +6,8 @@ import com.example.demo2.entities.Utente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PrenotazioneService {
     @Autowired
@@ -20,7 +22,7 @@ public class PrenotazioneService {
 //        return prenotazioneDAO.filterByData(data);
 //    }
 
-    public boolean AlreadyBooked(Utente utente) {
-        return !prenotazioneDAO.findByUtente(utente).isEmpty();
+    public List<Prenotazione> AlreadyBooked(Utente utente) {
+        return prenotazioneDAO.findByUtente(utente);
     }
 }
