@@ -10,7 +10,8 @@ import java.util.List;
 
 @Repository
 public interface PostazioneDAO extends JpaRepository<Postazione, Long> {
-    @Query("SELECT p FROM Postazione p WHERE p.tipoPostazione=:tipoPostazione OR p.edificio.città LIKE :città")
+    @Query("SELECT p FROM Postazione p WHERE p.tipoPostazione=:tipoPostazione AND p.edificio.città LIKE :città")
     List<Postazione> findByPostazioneAndCittà(TipoPostazione tipoPostazione, String città);
 
+    List<Postazione> findByTipoPostazione(TipoPostazione tipoPostazione);
 }

@@ -94,8 +94,17 @@ public class MyRunner implements CommandLineRunner {
 
         }
 
-        System.out.println("----------find by tipopostazione o città------------");
-        postazioneService.findCittaoTipoPostazione();
+        System.out.println("----------find by tipopostazione e città------------");
+        postazioneService.findCittaoTipoPostazione(TipoPostazione.OPENSPACE, "Lake Myles");
+
+        System.out.println("----------find by tipopostazione------------");
+        postazioneService.findByTipo(TipoPostazione.PRIVATO);
+
+        System.out.println("----------find by nameutente------------");
+        utenteService.filterByName("Mirco");
+
+        System.out.println("----------find by usernameutente------------");
+        utenteService.filterByUsername("mirc04");
 
     }
 }

@@ -6,6 +6,8 @@ import com.example.demo2.entities.Postazione;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PostazioneService {
     @Autowired
@@ -16,8 +18,12 @@ public class PostazioneService {
         System.out.println("creato");
     }
 
-    public void findCittaoTipoPostazione() {
-        postazioneDAO.findByPostazioneAndCittà(TipoPostazione.OPENSPACE, "Lake Myles");
+    public List<Postazione> findCittaoTipoPostazione(TipoPostazione tipoPostazione, String città) {
+        return postazioneDAO.findByPostazioneAndCittà(tipoPostazione, città);
+    }
+
+    public List<Postazione> findByTipo(TipoPostazione tipoPostazione) {
+        return postazioneDAO.findByTipoPostazione(tipoPostazione);
     }
 
 }
