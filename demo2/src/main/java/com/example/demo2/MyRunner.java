@@ -133,5 +133,12 @@ public class MyRunner implements CommandLineRunner {
             System.out.println(e.getMessage());
         }
 
+        System.out.println("----------find by città------------");
+        try {
+            edificioService.findByCittà("Padova");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 }
