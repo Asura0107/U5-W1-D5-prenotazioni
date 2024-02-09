@@ -20,8 +20,8 @@ public class Utente {
     private String username;
     private String email;
 
-//    @OneToMany(mappedBy = "utente")
-//    private List<Prenotazione> prenotazione;
+    @OneToMany(mappedBy = "utente")
+    private List<Prenotazione> prenotazione;
 
     public Utente(String name, String username, String email) {
         this.name = name;
