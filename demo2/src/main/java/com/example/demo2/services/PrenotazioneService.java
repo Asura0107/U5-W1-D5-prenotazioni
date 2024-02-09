@@ -2,6 +2,7 @@ package com.example.demo2.services;
 
 import com.example.demo2.dao.PrenotazioneDAO;
 import com.example.demo2.entities.Prenotazione;
+import com.example.demo2.entities.Utente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,4 +19,8 @@ public class PrenotazioneService {
 //    public List<Prenotazione> filterData(LocalDate data) {
 //        return prenotazioneDAO.filterByData(data);
 //    }
+
+    public boolean AlreadyBooked(Utente utente) {
+        return !prenotazioneDAO.findByUtente(utente).isEmpty();
+    }
 }

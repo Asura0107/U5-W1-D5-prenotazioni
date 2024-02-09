@@ -86,7 +86,7 @@ public class MyRunner implements CommandLineRunner {
             Utente utcas = utenti.get(r.nextInt(utenti.size()));
             Postazione poscas = postazioni.get(r.nextInt(postazioni.size()));
             Prenotazione prenotazione = new Prenotazione(poscas, utcas);
-            if (prenotazione.getDurata().isBefore(LocalDate.now()) || poscas == null || prenotazione.getDurata() == null) {
+            if (prenotazione.getDurata().isBefore(LocalDate.now()) || poscas == null || prenotazione.getDurata() == null || prenotazioneService.AlreadyBooked(utcas)) {
                 continue;
             }
 
