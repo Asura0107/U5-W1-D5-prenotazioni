@@ -95,16 +95,43 @@ public class MyRunner implements CommandLineRunner {
         }
 
         System.out.println("----------find by tipopostazione e città------------");
-        postazioneService.findCittaoTipoPostazione(TipoPostazione.OPENSPACE, "Lake Myles");
+        try {
+            postazioneService.findCittaoTipoPostazione(TipoPostazione.OPENSPACE, "Lake Myles");
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
 
         System.out.println("----------find by tipopostazione------------");
-        postazioneService.findByTipo(TipoPostazione.PRIVATO);
+        try {
 
-        System.out.println("----------find by nameutente------------");
-        utenteService.filterByName("Mirco");
+            postazioneService.findByTipo(TipoPostazione.PRIVATO);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
-        System.out.println("----------find by usernameutente------------");
-        utenteService.filterByUsername("mirc04");
+        System.out.println("----------find by name utente------------");
+        try {
+
+            utenteService.filterByName("Mirco");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("----------find by username utente------------");
+        try {
+
+            utenteService.filterByUsername("mirc04");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("----------find by data------------");
+        try {
+
+            prenotazioneService.filterData(LocalDate.now());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 }
