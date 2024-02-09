@@ -5,9 +5,6 @@ import com.example.demo2.entities.Prenotazione;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.List;
-
 @Service
 public class PrenotazioneService {
     @Autowired
@@ -18,7 +15,7 @@ public class PrenotazioneService {
         System.out.println("creato");
     }
 
-    public List<Prenotazione> filterData(LocalDate data) {
-        return prenotazioneDAO.filterByData(data);
-    }
+//    public List<Prenotazione> filterData(LocalDate data) {
+//        return prenotazioneDAO.filterByData(data);
+//    }
 }

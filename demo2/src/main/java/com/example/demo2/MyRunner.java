@@ -125,13 +125,13 @@ public class MyRunner implements CommandLineRunner {
             System.out.println(e.getMessage());
         }
 
-        System.out.println("----------find by data------------");
-        try {
-
-            prenotazioneService.filterData(LocalDate.now());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+//        System.out.println("----------find by data------------");
+//        try {
+//
+//            prenotazioneService.filterData(LocalDate.now());
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
 
         System.out.println("----------find by città------------");
         try {
