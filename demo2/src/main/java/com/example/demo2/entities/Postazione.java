@@ -19,6 +19,7 @@ public class Postazione {
 
     private String descrizione;
 
+    @Enumerated(EnumType.STRING)
     private TipoPostazione tipoPostazione;
 
     private int maxpersone;

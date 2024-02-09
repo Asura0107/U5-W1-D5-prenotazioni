@@ -1,6 +1,7 @@
 package com.example.demo2;
 
 import com.example.demo2.Enum.TipoPostazione;
+import com.example.demo2.dao.PostazioneDAO;
 import com.example.demo2.entities.Edificio;
 import com.example.demo2.entities.Postazione;
 import com.example.demo2.entities.Prenotazione;
@@ -33,6 +34,9 @@ public class MyRunner implements CommandLineRunner {
     @Autowired
     PrenotazioneService prenotazioneService;
 
+    @Autowired
+    PostazioneDAO postazioneDAO;
+
     //mi serve per prendere un enum random
     public static <T extends Enum<?>> T getRandomEnum(Class<T> enumeration) {
         Random random = new Random();
@@ -50,18 +54,22 @@ public class MyRunner implements CommandLineRunner {
         List<Utente> utenti = new ArrayList<>();
 
 
+        System.out.println("------------------------------UTENTI---------------------------------");
         for (int i = 0; i < 20; i++) {
             Utente utente = new Utente(faker.name().name(), faker.name().username(), faker.internet().emailAddress());
             utenteService.save(utente);
             utenti.add(utente);
         }
-        for (int i = 0; i < 4; i++) {
+
+        System.out.println("------------------------------EDIFICI---------------------------------");
+        for (int i = 0; i < 6; i++) {
             Edificio edificio = new Edificio(faker.address().firstName(), faker.address().streetAddress(), faker.address().city());
             edificioService.save(edificio);
             edificios.add(edificio);
         }
 
-        for (int i = 0; i < 9; i++) {
+        System.out.println("------------------------------POSTAZIONE---------------------------------");
+        for (int i = 0; i < 15; i++) {
             Edificio edcas = edificios.get(r.nextInt(edificios.size()));
             Postazione postazione = new Postazione(faker.lorem().characters(), getRandomEnum(TipoPostazione.class), r.nextInt(10, 50), edcas, r.nextInt(10, 60));
             if (postazione.getMaxpersone() < postazione.getPersoneattuali()) {
@@ -72,7 +80,9 @@ public class MyRunner implements CommandLineRunner {
             }
             postazioni.add(postazione);
         }
-        for (int i = 0; i < 15; i++) {
+
+        System.out.println("------------------------------PRENOTAZIONI---------------------------------");
+        for (int i = 0; i < 20; i++) {
             Utente utcas = utenti.get(r.nextInt(utenti.size()));
             Postazione poscas = postazioni.get(r.nextInt(postazioni.size()));
             Prenotazione prenotazione = new Prenotazione(poscas, utcas);
@@ -84,6 +94,8 @@ public class MyRunner implements CommandLineRunner {
 
         }
 
+        System.out.println("----------find by tipopostazione o città------------");
+        postazioneService.findCittaoTipoPostazione();
 
     }
 }

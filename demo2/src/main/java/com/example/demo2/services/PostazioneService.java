@@ -1,5 +1,6 @@
 package com.example.demo2.services;
 
+import com.example.demo2.Enum.TipoPostazione;
 import com.example.demo2.dao.PostazioneDAO;
 import com.example.demo2.entities.Postazione;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,8 @@ public class PostazioneService {
         System.out.println("creato");
     }
 
-//    public List<Postazione> findBytipoPostazioneAndcittà(TipoPostazione tipoPostazione, String città) {
-//        return postazioneDAO.findBytipoPostazioneAndcittà(tipoPostazione, città);
-//    }
+    public void findCittaoTipoPostazione() {
+        postazioneDAO.findByPostazioneAndCittà(TipoPostazione.OPENSPACE, "Lake Myles");
+    }
+
 }
